@@ -1,10 +1,13 @@
-﻿Построение начато 14.05.2015 12:18:17.
+﻿Построение начато 14.05.2015 17:14:41.
      1>Проект "D:\Підручники\CircleOnPlane\CircleOnPlane\CircleOnPlane.vcxproj" в узле 2 (целевые объекты Build).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\CircleOnPlane.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt CircleOnPlaneDlg.cpp
          CircleOnPlaneDlg.cpp
      1>d:\підручники\circleonplane\circleonplane\circleonplanedlg.cpp(128): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357): см. объявление "sprintf"
+     1>d:\підручники\circleonplane\circleonplane\circleonplanedlg.cpp(350): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+     1>d:\підручники\circleonplane\circleonplane\circleonplanedlg.cpp(353): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+     1>d:\підручники\circleonplane\circleonplane\circleonplanedlg.cpp(354): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Підручники\CircleOnPlane\CircleOnPlane\Debug\CircleOnPlane.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"D:\Підручники\CircleOnPlane\CircleOnPlane\Debug\CircleOnPlane.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Підручники\CircleOnPlane\CircleOnPlane\Debug\CircleOnPlane.lib" /MACHINE:X86 Debug\CircleOnPlane.res
          Debug\CircleOnPlane.obj
@@ -15,4 +18,4 @@
 
 Построение успешно завершено.
 
-Затраченное время: 00:00:00.60
+Затраченное время: 00:00:00.67

@@ -25,17 +25,17 @@ CCircleOnPlaneDlg::CCircleOnPlaneDlg(CWnd* pParent /*=NULL*/)
 	, vc(670)
 	, phi_n(15)
 	, x1(5)
-	, x2(6)
-	, x3(4)
-	, x4(8)
-	, y1(8)
-	, y3(6)
-	, y4(4)
+	, x2(5)
+	, x3(0)
+	, x4(0)
+	, y1(5)
+	, y3(0)
+	, y4(5)
 	, z1(2)
 	, z2(7)
-	, y2(8)
+	, y2(0)
 	, z3(1)
-	, z4(2)
+	, z4(5)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -328,7 +328,7 @@ void Block10(CDC* pDC, double points[4][3]) //блок 10
 
 	double alpha = asin(lv*lN + mv*mN + rv*rN); //угол наклона Vv к alpha
 
-	double ka = 1; //коэфициент влияния альфа на глубину внедрения
+	double ka = 0; //коэфициент влияния альфа на глубину внедрения
 	if ((alpha > (10 * 3.14159265)/180) && (alpha <= (90 * 3.14159265)/180)) 
 		ka = sin(alpha - (10 * 3.14159265)/180) / sin((80 * 3.14159265)/180);
 
@@ -341,6 +341,18 @@ void Block10(CDC* pDC, double points[4][3]) //блок 10
 	dtoa(Lvn,sz);
 	s.Format(_T("%S"), sz);
 	pDC->TextOutW(120, 440, s);
+}
+
+void PaintPlane(CDC* pDC, double points[4][3])
+{
+	int x0 = 80; int y0 = 480;
+	int scale = 20;
+	pDC->MoveTo((int) x0 + scale*points[3][0], (int)  y0 + scale*points[3][1]);
+	for (int i = 0; i < 4; i++)
+	{
+		pDC->LineTo((int)  x0 + scale*points[i][0], (int)  y0 + scale*points[i][1]);
+		pDC->MoveTo((int)  x0 + scale*points[i][0], (int)  y0 + scale*points[i][1]);
+	}
 }
 
 void CCircleOnPlaneDlg::OnBnClickedButton1()
@@ -358,6 +370,7 @@ void CCircleOnPlaneDlg::OnBnClickedButton1()
 	Block9(pDC); //вычисление блока 9 в пояснительной записке
 	GetTCoordinates(pDC, points); //вычисление координат точек пересечения кольца и грани
 	Block10(pDC, points); //вычисления блока 10
+	PaintPlane(pDC, points); //рисунок процесса
 
 	ReleaseDC(pDC);
 }

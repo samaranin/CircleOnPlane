@@ -1,26 +1,18 @@
-﻿Построение начато 13.05.2015 23:57:41.
-     1>Проект "D:\Підручники\CircleOnPlane\CircleOnPlane\CircleOnPlane.vcxproj" в узле 2 (целевые объекты Rebuild).
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppClean.targets(75,5): warning : Процесс не может получить доступ к файлу "D:\Підручники\CIRCLEONPLANE\CIRCLEONPLANE\DEBUG\CIRCLEONPLANE.ILK", так как этот файл используется другим процессом.
+﻿Построение начато 14.05.2015 12:18:17.
+     1>Проект "D:\Підручники\CircleOnPlane\CircleOnPlane\CircleOnPlane.vcxproj" в узле 2 (целевые объекты Build).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\CircleOnPlane.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
-         stdafx.cpp
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\CircleOnPlane.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt CircleOnPlane.cpp CircleOnPlaneDlg.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\CircleOnPlane.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt CircleOnPlaneDlg.cpp
          CircleOnPlaneDlg.cpp
      1>d:\підручники\circleonplane\circleonplane\circleonplanedlg.cpp(128): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357): см. объявление "sprintf"
-         CircleOnPlane.cpp
-         Создание кода...
-     1>cl : командная строка warning D9028: сбой минимального перестроения, возврат к обычному построению
-       ResourceCompile:
-         C:\Program Files (x86)\Windows Kits\8.0\bin\x86\rc.exe /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /l"0x0419" /IDebug\ /nologo /fo"Debug\CircleOnPlane.res" CircleOnPlane.rc 
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Підручники\CircleOnPlane\CircleOnPlane\Debug\CircleOnPlane.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"D:\Підручники\CircleOnPlane\CircleOnPlane\Debug\CircleOnPlane.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Підручники\CircleOnPlane\CircleOnPlane\Debug\CircleOnPlane.lib" /MACHINE:X86 Debug\CircleOnPlane.res
          Debug\CircleOnPlane.obj
          Debug\CircleOnPlaneDlg.obj
          Debug\stdafx.obj
          CircleOnPlane.vcxproj -> D:\Підручники\CircleOnPlane\CircleOnPlane\Debug\CircleOnPlane.exe
-     1>Построение проекта "D:\Підручники\CircleOnPlane\CircleOnPlane\CircleOnPlane.vcxproj" завершено (целевые объекты Rebuild).
+     1>Построение проекта "D:\Підручники\CircleOnPlane\CircleOnPlane\CircleOnPlane.vcxproj" завершено (целевые объекты Build).
 
 Построение успешно завершено.
 
-Затраченное время: 00:00:14.53
+Затраченное время: 00:00:00.60

@@ -153,6 +153,7 @@ double Vr = 0;
 double V0 = 0;
 double x = 0;
 double p1 = 0, p2 = 0;
+double eps = 0;
 
 //точки пересечения кольца
 double point_T1[3] = {0, 0, 0};
@@ -164,7 +165,7 @@ char sz[32] = "";
 
 void Block9(CDC* pDC)
 {
-	double eps = atan((Vc*sin(x))/(Vc*cos(x) + Vr));  //считаем угол упреждения
+	eps = atan((Vc*sin(x))/(Vc*cos(x) + Vr));  //считаем угол упреждения
 	double A2 = (sin(eps)*sin(eps) - sin(Phi_n)*sin(Phi_n));
 
 	double V_rel = sqrt(Vr*Vr + Vc*Vc + 2*Vr*Vc*cos(x)); //относительная скорость ракеты
@@ -205,8 +206,15 @@ void Block9(CDC* pDC)
 
 void GetTCoordinates(CDC* pDC, double points[4][3])
 {
-	bool mark = false; //маркер для условия 11 в поясниельной записке
-	
+	//вспомагательные надписи
+	s.Format(_T("%S"), "T1: ");
+	pDC->TextOutW(80, 380, s);
+
+	s.Format(_T("%S"), "T2: ");
+	pDC->TextOutW(80, 410, s);
+
+	int mark = 0; //маркер для условия 11 в поясниельной записке
+
 	for (int j = 0; j < 3; j++) //примение формул 10 из записки для пары точек 4-1
 	{
 		double l = sqrt(pow((points[3][j] - points[0][j]), 2) 
@@ -217,11 +225,33 @@ void GetTCoordinates(CDC* pDC, double points[4][3])
 		point_T2[j] = points[3][0] + ( (points[3][j] - points[0][j]) / l)*p2;
 
 		if ( (min(points[3][j], points[0][j]) <= point_T2[j])  && (max(points[3][j], points[0][j]) >= point_T2[j]) )
-			 mark = true; //формула 11
-		else {mark = false;}
+			 mark += 1; //формула 11
+		else {mark = 0;}
 	}
 
-	for (int i = 0; i<3; i++)
+	//если верна формула 11
+	if (mark == 3)
+	{
+		//выводим Т1
+		for (int x = 0, i = 0; i < 3 ; i++, x += 100)
+		{
+			dtoa(point_T1[i],sz);
+			s.Format(_T("%S"), sz);
+			pDC->TextOutW((120 + x), 380, s);
+		}	
+
+		//выводим Т2
+		for (int x = 0, i = 0; i < 3 ; i++, x += 100)
+		{
+			dtoa(point_T2[i],sz);
+			s.Format(_T("%S"), sz);
+			pDC->TextOutW((120 + x), 410, s);
+		}	
+
+		return;
+	}
+
+	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++) //примение формул 10 из записки для пар точек 1-2, 2-3, 3-4
 		{
@@ -233,38 +263,84 @@ void GetTCoordinates(CDC* pDC, double points[4][3])
 			point_T2[j] = points[i][j] + ( (points[i+1][j] - points[i][j]) / l)*p2;
 
 			if ( (min(points[i][j], points[i+1][j]) <= point_T2[j])  && (max(points[i][j], points[i+1][j]) >= point_T2[j]) )
-				mark = true; //формула 11
-			else {mark = false;}
-		}
+				mark += 1; //формула 11
+			else {mark = 0;}
 
-		//вспомагательные надписи
-		s.Format(_T("%S"), "T1: ");
-		pDC->TextOutW(80, 380, s);
+			//если верна формула 11
+			if (mark == 3)
+			{
+				 //выводим Т1
+				 for (int x = 0, i = 0; i < 3 ; i++, x += 100)
+				{
+					dtoa(point_T1[i],sz);
+					s.Format(_T("%S"), sz);
+					pDC->TextOutW((120 + x), 380, s);
+				}	
 
-		s.Format(_T("%S"), "T2: ");
-		pDC->TextOutW(80, 410, s);
+				//выводим Т2
+				for (int x = 0, i = 0; i < 3 ; i++, x += 100)
+				{
+					dtoa(point_T2[i],sz);
+					s.Format(_T("%S"), sz);
+					pDC->TextOutW((120 + x), 410, s);
+				}	
 
-		//если верна формула 11
-		if (mark)
-		{
-		  //выводим Т1
-		  for (int x = 0, i = 0; i < 3 ; i++, x += 100)
-		  {
-			dtoa(point_T1[i],sz);
-			s.Format(_T("%S"), sz);
-			pDC->TextOutW((120 + x), 380, s);
-		  }	
-
-		  //выводим Т2
-		  for (int x = 0, i = 0; i < 3 ; i++, x += 100)
-		  {
-			dtoa(point_T2[i],sz);
-			s.Format(_T("%S"), sz);
-			pDC->TextOutW((120 + x), 410, s);
-		  }	
-		  break;
+				return;
+			}
 		}
 	}
+}
+
+void Block10(CDC* pDC, double points[4][3]) //блок 10
+{
+	double mid_point_T[3] = {0.5*(point_T1[0] + point_T2[0]), 0.5*(point_T1[1] + point_T2[1]), 0.5*(point_T1[2] + point_T2[2])}; //координаты средней точки следа
+	double Dr = sqrt(mid_point_T[0]*mid_point_T[0] + mid_point_T[1]*mid_point_T[1] + mid_point_T[2]*mid_point_T[2]); //расстояние от точки взрыва до центра следа
+	
+	//углы которые характеризуют Dr
+	double phi_r = acos(mid_point_T[0]/Dr);
+	double eta_r = atan(mid_point_T[1]/mid_point_T[0]);
+
+	double cos_phi_r = (mid_point_T[0] * cos(x - eps) - mid_point_T[0] * sin(x - eps)) / Dr;
+	double sin_sqr_phi_r = 1 - cos_phi_r * cos_phi_r;
+	double V01 = sqrt(V0*V0 + Vr*Vr + 2*V0*Vr*cos(Phi_n));//начальная скоросьь метания стержня
+	double Vv = Vc*cos_phi_r + sqrt(V01*V01 - Vc*Vc*sin_sqr_phi_r);//скорость встречи
+
+	double Tr = Dr/Vv; //время полета стержневого кольца
+	double R = V0 * sin(Phi_n) * Tr; //радиус стержневого кольца
+
+	//напрямные косинусы Vv
+	double lv = cos(phi_r);
+	double mv = sin(phi_r) * sin(eta_r);
+	double rv = sin(phi_r) * cos(eta_r);
+
+	double A = (points[1][1] - points[0][1])*(points[2][2] - points[0][2]) - 
+				(points[2][1] - points[0][1])*(points[1][2] - points[0][2]);
+	double B = (points[2][0] - points[0][0])*(points[1][2] - points[0][2]) - 
+				(points[1][0] - points[0][0])*(points[2][2] - points[0][2]);
+	double C = (points[1][0] - points[0][0])*(points[2][1] - points[0][1]) - 
+				(points[2][0] - points[0][0])*(points[1][1] - points[0][1]);
+	double l = sqrt(A*A + B*B + C*C);
+
+	//напрямные косинусы N к грани
+	double lN = A/l;
+	double mN = B/l;
+	double rN = C/l;
+
+	double alpha = asin(lv*lN + mv*mN + rv*rN); //угол наклона Vv к alpha
+
+	double ka = 1; //коэфициент влияния альфа на глубину внедрения
+	if ((alpha > (10 * 3.14159265)/180) && (alpha <= (90 * 3.14159265)/180)) 
+		ka = sin(alpha - (10 * 3.14159265)/180) / sin((80 * 3.14159265)/180);
+
+	double Lvn = 0.00673 * ka * Vv; //глубина внедрения кольца
+
+	//вспомагательные надписи
+	s.Format(_T("%S"), "Lvn: ");
+	pDC->TextOutW(80, 440, s);
+
+	dtoa(Lvn,sz);
+	s.Format(_T("%S"), sz);
+	pDC->TextOutW(120, 440, s);
 }
 
 void CCircleOnPlaneDlg::OnBnClickedButton1()
@@ -281,6 +357,7 @@ void CCircleOnPlaneDlg::OnBnClickedButton1()
 
 	Block9(pDC); //вычисление блока 9 в пояснительной записке
 	GetTCoordinates(pDC, points); //вычисление координат точек пересечения кольца и грани
+	Block10(pDC, points); //вычисления блока 10
 
 	ReleaseDC(pDC);
 }
